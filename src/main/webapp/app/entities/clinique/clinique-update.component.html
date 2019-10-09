@@ -1,0 +1,107 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-clinique-heading" jhiTranslate="gestionCliniqueApp.clinique.home.createOrEditLabel">Create or edit a Clinique</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gestionCliniqueApp.clinique.nom" for="field_nom">Nom</label>
+                    <input type="text" class="form-control" name="nom" id="field_nom"
+                           formControlName="nom"/>
+                    <div *ngIf="editForm.get('nom').invalid && (editForm.get('nom').dirty || editForm.get('nom').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('nom').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gestionCliniqueApp.clinique.dirigeant" for="field_dirigeant">Dirigeant</label>
+                    <input type="text" class="form-control" name="dirigeant" id="field_dirigeant"
+                           formControlName="dirigeant"/>
+                    <div *ngIf="editForm.get('dirigeant').invalid && (editForm.get('dirigeant').dirty || editForm.get('dirigeant').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('dirigeant').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gestionCliniqueApp.clinique.adresse" for="field_adresse">Adresse</label>
+                    <input type="text" class="form-control" name="adresse" id="field_adresse"
+                           formControlName="adresse"/>
+                    <div *ngIf="editForm.get('adresse').invalid && (editForm.get('adresse').dirty || editForm.get('adresse').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('adresse').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gestionCliniqueApp.clinique.telephone" for="field_telephone">Telephone</label>
+                    <input type="text" class="form-control" name="telephone" id="field_telephone"
+                           formControlName="telephone"/>
+                    <div *ngIf="editForm.get('telephone').invalid && (editForm.get('telephone').dirty || editForm.get('telephone').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('telephone').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gestionCliniqueApp.clinique.fax" for="field_fax">Fax</label>
+                    <input type="text" class="form-control" name="fax" id="field_fax"
+                           formControlName="fax"/>
+                    <div *ngIf="editForm.get('fax').invalid && (editForm.get('fax').dirty || editForm.get('fax').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('fax').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gestionCliniqueApp.clinique.email" for="field_email">Email</label>
+                    <input type="text" class="form-control" name="email" id="field_email"
+                           formControlName="email"/>
+                    <div *ngIf="editForm.get('email').invalid && (editForm.get('email').dirty || editForm.get('email').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('email').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gestionCliniqueApp.clinique.horaireTravail" for="field_horaireTravail">Horaire Travail</label>
+                    <input type="text" class="form-control" name="horaireTravail" id="field_horaireTravail"
+                           formControlName="horaireTravail"/>
+                    <div *ngIf="editForm.get('horaireTravail').invalid && (editForm.get('horaireTravail').dirty || editForm.get('horaireTravail').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('horaireTravail').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label jhiTranslate="gestionCliniqueApp.clinique.medecin" for="field_medecins">Medecin</label>
+                    <select class="form-control" id="field_medecins" multiple name="medecins" formControlName="medecins">
+                        <option [ngValue]="getSelected(editForm.get('medecins').value, medecinOption)" *ngFor="let medecinOption of medecins; trackBy: trackMedecinById">{{medecinOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

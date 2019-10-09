@@ -1,0 +1,11 @@
+version: '2'
+services:
+  gestionclinique-postgresql:
+    image: postgres:11.5
+    # volumes:
+    #     - ~/volumes/jhipster/GestionClinique/postgresql/:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=GestionClinique
+      - POSTGRES_PASSWORD=
+    ports:
+      - 5432:5432
